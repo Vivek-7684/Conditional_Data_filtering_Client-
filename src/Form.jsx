@@ -38,17 +38,13 @@ export default function Form() {
         const filterProduct = `/Product?${params.join('&')}`;
 
         Navigate(filterProduct);
-
-        // await api.get(filterProduct)
-        //     .then((response) => { setProduct(response.data); console.log(response.data); })
-        //     .catch((err) => err.message)
     }
     console.log(filter);
 
 
 
     return (
-        <Box sx={{ width: '50vw', p: 3, display: 'flex', flexDirection: 'row', gap: '1rem', justifyItems: 'center', alignContent: 'center' }}>
+        <Box sx={{ width: '40vw', p: 3, display: 'flex', flexDirection: 'row', gap: '1rem', justifyItems: 'center', alignContent: 'center' }}>
             <form>
                 <Typography variant='h5'>Select Filter</Typography>
                 <TextField label="name" name="name" margin="normal" onChange={(e) => handleChange(e)} variant='outlined' fullWidth />

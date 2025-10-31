@@ -31,12 +31,11 @@ export const Product = () => {
             .catch((err) => err.message)
     }
 
-    useEffect(() => getAllProducts(), []);
+    useEffect(() => getAllProducts(), [location.search]);
 
     return (
-        <Stack gap='2rem' sx={{ width: "50vw", p: 5 }}>
-            <Button variant='contained' sx={{ p: 1, width: '30%' }} onClick={() => { navigate('/'); }}>Back</Button>
-            <TableContainer sx={{ width: "70vw", height: "70vh" }}>
+        <Stack gap='2rem' sx={{ width: "40vw", p: 5 }}>
+            <TableContainer sx={{ width: "45vw", height: "60vh" }}>
                 <Typography variant='h5'>My Products</Typography>
                 <Table>
                     <TableHead>
