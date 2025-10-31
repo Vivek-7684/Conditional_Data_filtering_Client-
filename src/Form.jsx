@@ -35,7 +35,7 @@ export default function Form() {
         if (filter.minPrice) params.push(`minPrice=${filter.minPrice}`);
         if (filter.category) params.push(`category=${filter.category}`);
 
-        const filterProduct = `/Product?${params.join('&')}`;
+        const filterProduct = `/?${params.join('&')}`;
 
         Navigate(filterProduct);
     }
