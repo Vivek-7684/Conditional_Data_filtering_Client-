@@ -56,14 +56,19 @@ export const Product = ({ updatedProduct, setUpdateProduct }) => {
                     messages: messages ? messages : [err.message]
                 });
 
-                console.log(err.message);
-
                 setTimeout(() => {
                     setAlert({ show: false, type: "", messages: [] });
                 }, 3000);
 
             });
     }
+
+    const getSingleProduct = (id) => {
+        api.get(`/Product/?id=${id}`)
+            .then((response) => { setUpdateProduct(response.data); })
+    
+    }
+
 
     const deleteProduct = (id) => {
         api.delete(`/DeleteProduct/${id}`)
@@ -142,7 +147,11 @@ export const Product = ({ updatedProduct, setUpdateProduct }) => {
                                     <TableCell>{data.maxPrice}</TableCell>
                                     <TableCell>{data.minPrice}</TableCell>
                                     <TableCell>{data.category}</TableCell>
-                                    <TableCell><EditIcon sx={{ color: "primary.main", fontSize: '25px' }} />{" "}<DeleteIcon sx={{ color: "red", fontSize: '25px' }} onClick={() => deleteProduct(data.id)} /></TableCell>
+                                    <TableCell><EditIcon sx={{ color: "primary.main", fontSize: '25px' }}
+                                        onClick={() => {
+                                            setUpdateProduct({ id: data.id });
+                                            getSingleProduct(data.id);
+                                        }} />{" "}<DeleteIcon sx={{ color: "red", fontSize: '25px' }} onClick={() => deleteProduct(data.id)} /></TableCell>
                                 </TableRow>
                             )
                         })}

@@ -8,15 +8,16 @@ import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import { productSchemaForFilter } from '../validation.js';
 import { Stack, Alert } from '@mui/material';
+// import { Product } from './Product.jsx';
 
 export default function Form({ updatedProduct, setUpdateProduct }) {
 
     const Navigate = useNavigate();
 
-    const [filter, setFilter] = useState({});
-    const [error, setError] = useState({});
+    const [filter, setFilter] = useState({}); // form data
+    const [error, setError] = useState({}); // real time error
 
-    const [alert, setAlert] = useState({
+    const [alert, setAlert] = useState({  // alert messages
         show: false,
         type: "",
         messages: []
@@ -64,6 +65,7 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
     };
 
     const handleAdd = () => {
+        console.log("A");
         api.post("/AddProduct", filter)
             .then(() => {
                 setAlert({
@@ -74,7 +76,6 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
 
                 setTimeout(() => {
                     setAlert({ show: false, type: "", messages: [] });
-                    console.log("a");
                     Navigate(0);
                 }, 3000);
             })
@@ -101,6 +102,46 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
 
             });
     };
+
+    const updateProduct = (id, filter) => {
+        api.post(`/updateProduct${id}`, filter)
+            .then(() => {
+                setAlert({
+                    show: true,
+                    type: "success",
+                    messages: ["Product updated successfully"]
+                });
+
+                setTimeout(() => {
+                    setAlert({ show: false, type: "", messages: [] });
+                    Navigate(0);
+                }, 3000);
+            })
+            .catch((err) => {
+
+                let messages = [];
+
+                if (Array.isArray(err.response.data)) {
+                    messages = err.response.data.map((errmsg) => errmsg.msg);
+                } else {
+                    messages = [err.response.data];
+                }
+
+                setAlert({
+                    show: true,
+                    type: "error",
+                    messages
+                });
+
+                setTimeout(() => {
+                    setAlert({ show: false, type: "", messages: [] });
+                }, 3000);
+
+
+            });
+    };
+
+    // console.log(updatedProduct.length);
 
     return (
         <>
@@ -191,9 +232,10 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
                             disabled={Object.keys(error).length > 0}
                             variant='contained'
                             fullWidth
-                            onClick={handleAdd}
+                            // onClick={() => { updatedProduct.length > 0 ? updateProduct(updateProduct[0].id, filter) : handleAdd }}
+                            onClick={handleAdd }
                         >
-                            Add Product
+                           Add Product
                         </Button>
                     </Stack>
                 </form>
