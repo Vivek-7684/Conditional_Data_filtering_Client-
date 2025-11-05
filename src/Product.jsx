@@ -19,7 +19,11 @@ import Box from '@mui/material/Box';
 import { Alert } from '@mui/material';
 
 
-export const Product = () => {
+export const Product = ({ updatedProduct, setUpdateProduct }) => {
+
+    console.log(updatedProduct);
+
+    console.log(setUpdateProduct);
 
     const [product, setProduct] = useState([]);
 
@@ -63,22 +67,22 @@ export const Product = () => {
 
     const deleteProduct = (id) => {
         api.delete(`/DeleteProduct/${id}`)
-        .then(() => {
-            setAlert({
-                show: true,
-                type: "success",
-                messages: ["Product Deleted successfully"]
-            });
+            .then(() => {
+                setAlert({
+                    show: true,
+                    type: "success",
+                    messages: ["Product Deleted successfully"]
+                });
 
-            setTimeout(() => {
-                setAlert({ show: false, type: "", messages: [] });
-                navigate(0);
-            }, 3000);
+                setTimeout(() => {
+                    setAlert({ show: false, type: "", messages: [] });
+                    navigate(0);
+                }, 3000);
 
-             setTimeout(() => {
-                navigate(0);
-            }, 1000);
-        })
+                setTimeout(() => {
+                    navigate(0);
+                }, 1000);
+            })
             .catch((err) => {
                 let messages = [];
 

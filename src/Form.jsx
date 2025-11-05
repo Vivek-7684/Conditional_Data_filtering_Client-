@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { productSchemaForFilter } from '../validation.js';
 import { Stack, Alert } from '@mui/material';
 
-export default function Form() {
+export default function Form({ updatedProduct, setUpdateProduct }) {
 
     const Navigate = useNavigate();
 
@@ -33,7 +33,7 @@ export default function Form() {
             setFilter({ ...filter, [e.target.name]: "" });
 
             const newErrors = { ...error };
-            delete newErrors[e.target.name];      //remove only that field error
+            delete newErrors[e.target.name]; //remove only that field error
             setError(newErrors);
 
             return; //  no validation for empty 

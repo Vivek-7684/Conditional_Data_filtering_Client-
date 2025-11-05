@@ -10,11 +10,13 @@ import Layout from './layout/Layout.jsx';
 
 function App() {
 
+  const [updatedProduct, setUpdateProduct] = useState({});
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Product />} />
+        <Route element={<Layout updatedProduct={updatedProduct} setUpdateProduct={setUpdateProduct} />}>
+          <Route path="/" element={<Product updatedProduct={updatedProduct} setUpdateProduct={setUpdateProduct} />} />
         </Route>
       </Routes>
     </BrowserRouter>
