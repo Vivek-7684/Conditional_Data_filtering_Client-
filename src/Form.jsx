@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import api from './api/api.js';
@@ -31,7 +31,7 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
         }
 
         if (e.target.value.trim() === "") {
-            setFilter({ ...filter, [e.target.name]: "" });
+            setFilter({ ...filter, [e.target.name]: undefined });
 
             const newErrors = { ...error };
             delete newErrors[e.target.name]; //remove only that field error
@@ -43,7 +43,10 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
         const updatedFields = { ...filter, [e.target.name]: e.target.value };
         setFilter(updatedFields);
 
+        console.log(updatedFields);
+
         const result = productSchemaForFilter.safeParse(updatedFields);
+        console.log(result);
 
         if (!result.success) {
             setError(result.error.flatten().fieldErrors);
@@ -51,6 +54,14 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
             setError({});
         }
     };
+
+    useEffect(() => {
+        if (updatedProduct.length > 0) {
+            setFilter(updatedProduct[0]);
+        }
+    }, [updatedProduct]);
+
+    console.log(filter);
 
     const handleSearch = () => {
         let params = [];
@@ -104,7 +115,7 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
     };
 
     const updateProduct = (id, filter) => {
-        api.post(`/updateProduct${id}`, filter)
+        api.put(`/updateProduct/${id}`, filter)
             .then(() => {
                 setAlert({
                     show: true,
@@ -140,8 +151,6 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
 
             });
     };
-
-    // console.log(updatedProduct.length);
 
     return (
         <>
@@ -232,10 +241,9 @@ export default function Form({ updatedProduct, setUpdateProduct }) {
                             disabled={Object.keys(error).length > 0}
                             variant='contained'
                             fullWidth
-                            // onClick={() => { updatedProduct.length > 0 ? updateProduct(updateProduct[0].id, filter) : handleAdd }}
-                            onClick={handleAdd }
+                            onClick={() => { updatedProduct.length > 0 ? updateProduct(updatedProduct[0]?.id, filter) : handleAdd() }}
                         >
-                           Add Product
+                            {updatedProduct.length > 0 ? "Edit Product" : "Add Product"}
                         </Button>
                     </Stack>
                 </form>

@@ -21,10 +21,6 @@ import { Alert } from '@mui/material';
 
 export const Product = ({ updatedProduct, setUpdateProduct }) => {
 
-    console.log(updatedProduct);
-
-    console.log(setUpdateProduct);
-
     const [product, setProduct] = useState([]);
 
     const navigate = useNavigate();
@@ -149,7 +145,6 @@ export const Product = ({ updatedProduct, setUpdateProduct }) => {
                                     <TableCell>{data.category}</TableCell>
                                     <TableCell><EditIcon sx={{ color: "primary.main", fontSize: '25px' }}
                                         onClick={() => {
-                                            setUpdateProduct({ id: data.id });
                                             getSingleProduct(data.id);
                                         }} />{" "}<DeleteIcon sx={{ color: "red", fontSize: '25px' }} onClick={() => deleteProduct(data.id)} /></TableCell>
                                 </TableRow>

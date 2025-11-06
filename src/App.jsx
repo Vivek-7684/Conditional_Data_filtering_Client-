@@ -10,7 +10,7 @@ import Layout from './layout/Layout.jsx';
 
 function App() {
 
-  const [updatedProduct, setUpdateProduct] = useState({});
+  const [updatedProduct, setUpdateProduct] = useState([]);
 
   return (
     <BrowserRouter>
