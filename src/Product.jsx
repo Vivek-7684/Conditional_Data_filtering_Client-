@@ -158,7 +158,8 @@ export const Product = ({ updatedProduct, setUpdateProduct }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant='contained' sx={{ p: 1, width: '100%' }} onClick={() => { getAllProducts(); }}>Get All Products</Button>
+            <Button 
+            variant='contained'   sx={{ p: 1, width: '100%' }} onClick={() => { getAllProducts(); }}>Get All Products</Button>
         </Stack>
     )
 }
